@@ -1,20 +1,48 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
-  </div>
+  <v-app>
+    <v-app-bar absolute color="#20A4AF" elevate-on-scroll scroll-target="#scrolling-techniques-7">
+      <v-toolbar-title>Title</v-toolbar-title>
+
+      <v-spacer></v-spacer>
+
+      <div v-if="photoURL">
+        <v-btn depressed color="#20A4AF">HOME</v-btn>
+        <v-btn depressed color="#20A4AF">TIPS</v-btn>
+        <v-btn depressed color="#20A4AF">QUESTION</v-btn>
+        <v-menu offset-y>
+          <template v-slot:activator="{ on }">
+            <button v-on="on">
+              <v-avatar>
+                <img v-if="photoURL" :src="photoURL" />
+              </v-avatar>
+            </button>
+          </template>
+          <v-list>
+            <v-list-item
+              ><v-list-item-title>{{ userName }}</v-list-item-title></v-list-item
+            >
+            <v-list-item @click="logout"><v-list-item-title>Logout</v-list-item-title></v-list-item>
+          </v-list>
+        </v-menu>
+      </div>
+      <v-btn v-else outlined color="#ffef00">LOGIN</v-btn>
+    </v-app-bar>
+    <v-sheet id="scrolling-techniques-7" class="overflow-y-auto" max-height="100vh">
+      <v-container style="height: 100vh; padding-top:64px;">
+        <router-view />
+      </v-container>
+    </v-sheet>
+  </v-app>
 </template>
 
 <script>
 import firebase from "firebase";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "App",
   created() {
     firebase.auth().onAuthStateChanged(user => {
+      this.setLoginUser(user);
       const nowRouteName = this.$router.currentRoute.name;
       // ログイン済
       if (user) {
@@ -28,11 +56,18 @@ export default {
     });
   },
   methods: {
-    ...mapActions("userManager", ["fetchUserInfo", "logout"])
+    ...mapActions("fireauth", ["logout", "setLoginUser"])
+  },
+  data() {
+    return {
+      items: [{ title: "Click Me" }, { title: "Click Me55Click Me55Click Me55" }, { title: "Click Me" }, { title: "Click Me 2" }]
+    };
+  },
+  computed: {
+    ...mapGetters("fireauth", ["userName", "photoURL"])
   }
 };
 </script>
-
 
 <style lang="scss">
 #app {
@@ -43,16 +78,10 @@ export default {
   color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+.v-toolbar__content {
+  color: #ffef00;
+  .v-btn__content {
+    color: #ffef00;
   }
 }
 </style>

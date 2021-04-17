@@ -1,19 +1,25 @@
-import firebase from "firebase/app";
+import firebase from "firebase";
 
 export default {
   namespaced: true,
   state: {
-    userInfo: null
+    login_user: null
   },
   mutations: {
+    setLoginUser(state, user) {
+      state.login_user = user;
+    },
     addUserInfo(state, { userData }) {
-      state.userInfo = userData;
+      state.login_user = userData;
     },
     deleteUserInfo(state) {
-      state.userInfo = null;
+      state.login_user = null;
     }
   },
   actions: {
+    setLoginUser({ commit }, user) {
+      commit("setLoginUser", user);
+    },
     // ログイン
     login(commit) {
       firebase
@@ -41,6 +47,8 @@ export default {
   },
 
   getters: {
-    getUid: state => (state.userInfo ? state.userInfo.userId : null)
+    uid: state => (state.login_user ? state.login_user.uid : null),
+    userName: state => (state.login_user ? state.login_user.displayName : ""),
+    photoURL: state => (state.login_user ? state.login_user.photoURL : "")
   }
 };
