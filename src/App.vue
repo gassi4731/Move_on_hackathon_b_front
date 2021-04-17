@@ -1,19 +1,19 @@
 <template>
   <v-app>
     <v-app-bar absolute color="#20A4AF" elevate-on-scroll scroll-target="#scrolling-techniques-7">
-      <v-toolbar-title>Title</v-toolbar-title>
+      <img src="./assets/logo.png" class="logo" />
 
       <v-spacer></v-spacer>
 
       <div v-if="photoURL">
         <v-btn depressed color="#20A4AF">HOME</v-btn>
         <v-btn depressed color="#20A4AF">TIPS</v-btn>
-        <v-btn depressed color="#20A4AF">QUESTION</v-btn>
+        <v-btn depressed color="#20A4AF">Q&A</v-btn>
         <v-menu offset-y>
           <template v-slot:activator="{ on }">
             <button v-on="on">
               <v-avatar>
-                <img v-if="photoURL" :src="photoURL" />
+                <img v-if="photoURL" :src="photoURL" class="img" />
               </v-avatar>
             </button>
           </template>
@@ -70,12 +70,17 @@ export default {
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;900&display=swap");
+
+button {
+  font-family: "M PLUS Rounded 1c", sans-serif !important;
+  font-weight: 900 !important;
+}
+
+body {
+  font-family: "M PLUS Rounded 1c", sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
 }
 
 .v-toolbar__content {
@@ -83,5 +88,9 @@ export default {
   .v-btn__content {
     color: #ffef00;
   }
+}
+
+.logo {
+  max-height: 40px;
 }
 </style>

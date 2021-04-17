@@ -1,7 +1,9 @@
 <template>
-  <div id="home">
-    <button @click="loginAction">Googleアカウントでログイン</button>
-  </div>
+  <v-container class="text-center">
+    <v-img :src="require('../assets/logo.png')" class="my-3" contain height="150" />
+    <h1>Googleアカウントで</h1>
+    <button style="color: #005497; font-size: 60px" @click="loginAction">ログイン</button>
+  </v-container>
 </template>
 
 <script>
