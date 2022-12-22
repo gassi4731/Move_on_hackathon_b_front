@@ -11,7 +11,7 @@
     "@firebase/util": "^0.4.1",
     "core-js": "^3.6.5",
     "firebase": "^8.4.1",
-    "firebase-admin": "^9.6.0",
+    "firebase-admin": "^11.4.1",
     "vue": "^2.6.11",
     "vue-router": "^3.4.9",
     "vuetify": "^2.2.11",
